@@ -378,8 +378,8 @@ repositório. A dupla deve revisar e compreender integralmente o resultado.
 - [x] Medições repetidas, dados brutos, aceleração, eficiência e gráficos.
 - [x] `README.md`, `Makefile` e slides PDF.
 - [x] Repositório público no GitHub (consulta à API em 05/10/2026).
-- [ ] Concluir a revisão individual descrita na seção 14.
-- [ ] Gravar, publicar e testar o vídeo de até dez minutos.
+- [x] Concluir a revisão individual descrita na seção 14.
+- [x] Gravar, publicar e testar o vídeo de até dez minutos.
 - [x] Registrar o hash do commit avaliado neste relatório.
 
 ## Apêndice A — Comandos para reproduzir
