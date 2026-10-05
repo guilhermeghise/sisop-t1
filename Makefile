@@ -14,8 +14,11 @@ bin/sequencial: src/conta-objetos-sequencial.c src/matriz.c src/matriz.h | bin
 bin/paralelo: src/conta-objetos-paralelo.c src/matriz.c src/matriz.h | bin
 	$(CC) $(CFLAGS) -pthread src/conta-objetos-paralelo.c src/matriz.c -o $@
 
-check: all
-	python3 tests/check.py
+bin/check: tests/check.c | bin
+	$(CC) $(CFLAGS) tests/check.c -o $@
+
+check: all bin/check
+	./bin/check
 
 clean:
 	rm -rf bin

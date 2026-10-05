@@ -5,7 +5,7 @@
 > - **Instituição:** Pontifícia Universidade Católica do Rio Grande do Sul
 > - **Repositório:** https://github.com/guilhermeghise/sisop-t1
 > - **Data:** 05/10/2026
-> - **Commit do código avaliado:** `d6517aef31654c7b663ee7050fd6808de1dff043`
+> - **Commit de referência das implementações sequencial e paralela:** `d6517aef31654c7b663ee7050fd6808de1dff043`
 
 ## Identificação
 
@@ -54,7 +54,7 @@ o cálculo real e unir componentes partidos pela divisão do trabalho.
 | Trabalhadores configuráveis | Segundo argumento de `bin/paralelo` |
 | Objetos entre regiões | União de rótulos nas fronteiras entre faixas |
 | Cinco matrizes obrigatórias | [`tests/obrigatorios/`](tests/obrigatorios/) e `make check` |
-| Testes e desempenho | [`tests/check.py`](tests/check.py) e [`results/medicoes.csv`](results/medicoes.csv) |
+| Testes e desempenho | [`tests/check.c`](tests/check.c) e [`results/medicoes.csv`](results/medicoes.csv) |
 
 ## 2. Organização do repositório
 
@@ -67,12 +67,9 @@ src/conta-objetos-sequencial.c
 src/conta-objetos-paralelo.c
 tests/obrigatorios/          cinco matrizes do enunciado
 tests/adicionais/            casos de borda e matriz de desempenho
-tests/check.py               verificação funcional
-tests/gerar_desempenho.py    gerador determinístico
+tests/check.c                verificação funcional em ANSI C
 results/medicoes.csv         medições brutas
 results/grafico-*.png        gráficos
-results/medir.py             rotina de medição
-results/graficos.py          regeneração dos gráficos
 slides/apresentacao.pdf      apresentação para o vídeo
 ```
 
@@ -206,11 +203,12 @@ faixas quando se usam três threads.
 
 ## 8. Correção e testes
 
-`make check` compara cada execução com o resultado esperado. Além dos casos
-fixos, gera 30 matrizes pequenas determinísticas e calcula sua referência por
-uma implementação independente em Python. Executa o paralelo com 2, 3, 4 e 8
-trabalhadores, confere entradas inválidas e repete o exemplo 3 dez vezes com
-quatro threads.
+`make check` compila o verificador [`tests/check.c`](tests/check.c), em ANSI C,
+e compara cada execução com o resultado esperado. Além dos casos fixos, gera
+30 matrizes pequenas determinísticas e calcula sua referência por uma
+implementação separada em C. Executa o paralelo com 2, 3, 4 e 8 trabalhadores,
+confere entradas inválidas, verifica a matriz de desempenho e repete o exemplo
+3 dez vezes com quatro threads.
 
 | Exemplo | Dimensões | Esperado | Sequencial | Paralelo (4 threads) | Resultado |
 |---:|---:|---:|---:|---:|---|
@@ -241,8 +239,7 @@ comparações repetidas dos resultados.
 
 A matriz de desempenho tem **2400 × 2400** células, geradas com probabilidade
 de `1` igual a 0,35 e semente `20261005`. O arquivo foi versionado para que
-todas as configurações usem os mesmos dados. O gerador está em
-[`tests/gerar_desempenho.py`](tests/gerar_desempenho.py). O tempo usa
+todas as configurações usem os mesmos dados. O tempo usa
 `clock_gettime(CLOCK_MONOTONIC)` e inclui alocação de rótulos, criação e espera
 das threads, rotulação e consolidação. Exclui leitura do arquivo, impressão e
 liberação final. Foram executados dois aquecimentos descartados por
@@ -306,7 +303,8 @@ objetos. Não se mediu cada fonte de sobrecarga separadamente.
 
 O código separa a leitura/rotulação compartilhada dos pontos de entrada
 sequencial e paralelo. Os testes verificam a contagem por uma referência
-independente. A compilação C89/C90 no macOS ocorreu sem erros nem avisos.
+independente em ANSI C. A compilação C89/C90 no macOS ocorreu sem erros nem
+avisos.
 
 ## 11. Limitações e decisões
 
@@ -348,8 +346,8 @@ da seguinte forma:
 
 | Integrante | Parte do código sob sua responsabilidade | Revisão e apresentação |
 |---|---|---|
-| Guilherme Ghise | `src/matriz.c`, `src/matriz.h`, `src/conta-objetos-sequencial.c` e `tests/check.py`: leitura da matriz, flood fill, versão sequencial e verificação de correção. | Conferir os requisitos e esses módulos; explicar o problema, o algoritmo sequencial e os testes. |
-| Eduardo Ferrari | `src/conta-objetos-paralelo.c`, `tests/gerar_desempenho.py`, `results/medir.py` e `results/graficos.py`: Pthreads, consolidação das fronteiras e avaliação de desempenho. | Conferir esses módulos e os cálculos; explicar o paralelismo, o union-find e os resultados. |
+| Guilherme Ghise | `src/matriz.c`, `src/matriz.h`, `src/conta-objetos-sequencial.c` e `tests/check.c`: leitura da matriz, flood fill, versão sequencial e verificação de correção. | Conferir os requisitos e esses módulos; explicar o problema, o algoritmo sequencial e os testes. |
+| Eduardo Ferrari | `src/conta-objetos-paralelo.c`, a matriz de desempenho, `results/medicoes.csv` e os gráficos: Pthreads, consolidação das fronteiras e avaliação de desempenho. | Conferir esses módulos e os cálculos; explicar o paralelismo, o union-find e os resultados. |
 
 Antes da entrega, cada integrante deve efetivamente realizar sua revisão e
 ambos devem conseguir explicar o funcionamento completo do programa. Esta
@@ -361,8 +359,7 @@ parte do código.
 | Recurso | Uso |
 |---|---|
 | Enunciado e modelo de relatório fornecidos pelo professor | Requisitos e cinco matrizes obrigatórias; as matrizes foram verificadas visualmente no PDF |
-| Python 3 (biblioteca padrão) | Referência dos testes, gerador e medições; não integra os executáveis C |
-| ReportLab e Poppler | Regeneração dos gráficos PNG a partir do CSV |
+| Python 3, ReportLab e Poppler | Preparação dos dados, medições e gráficos já versionados; nenhum script dessas ferramentas integra o código-fonte entregue |
 | Pthreads e biblioteca C/POSIX | Concorrência, entrada, memória e relógio monotônico |
 
 Não foram incorporados trechos de código externos ao material produzido neste
@@ -389,10 +386,14 @@ make clean && make
 make check
 ./bin/sequencial tests/obrigatorios/exemplo5.txt
 ./bin/paralelo tests/obrigatorios/exemplo5.txt 4
-python3 tests/gerar_desempenho.py
-python3 results/medir.py
-# Opcional: results/graficos.py requer ReportLab e Poppler.
+./bin/sequencial tests/adicionais/desempenho.txt
+./bin/paralelo tests/adicionais/desempenho.txt 2
+./bin/paralelo tests/adicionais/desempenho.txt 4
+./bin/paralelo tests/adicionais/desempenho.txt 8
 ```
+
+Para repetir a análise de desempenho, descarte dois aquecimentos de cada
+configuração e registre cinco rodadas intercaladas, como descrito na seção 9.
 
 ## Apêndice B — Formato dos dados brutos
 

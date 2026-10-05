@@ -49,15 +49,14 @@ O resultado é **1 objeto**: as três células estão ligadas por diagonais.
 
 ```sh
 make check
-python3 tests/gerar_desempenho.py
-python3 results/medir.py
 ```
 
-`make check` requer Python 3 e confere os cinco exemplos obrigatórios, casos
-adicionais, matrizes aleatórias com referência independente e entradas
-inválidas. A matriz de desempenho versionada em
+`make check` compila um verificador em ANSI C e confere os cinco exemplos
+obrigatórios, casos adicionais, 30 matrizes aleatórias com referência
+independente em C, entradas inválidas e a matriz de desempenho. Esta última,
+versionada em
 [`tests/adicionais/desempenho.txt`](tests/adicionais/desempenho.txt) tem 2400 ×
-2400 células e é reproduzida pela semente fixa do gerador. As medições brutas
+2400 células e é usada sem alteração em todas as configurações. As medições brutas
 estão em [`results/medicoes.csv`](results/medicoes.csv).
 
 No MacBook Pro M4 usado no trabalho, as medianas de cinco repetições foram
@@ -74,6 +73,6 @@ limitações da comparação.
 
 As cinco matrizes obrigatórias foram transcritas do enunciado do Prof. Filipo
 Mór. Os resultados foram conferidos com os testes e as medições versionadas.
-Python 3 é usado apenas nas ferramentas de teste/medição e
-ReportLab + Poppler na regeneração opcional dos gráficos. A execução dos dois
-programas depende apenas da biblioteca C e de Pthreads.
+Python 3, ReportLab e Poppler foram usados na preparação dos dados e figuras
+já versionados; nenhum script dessas ferramentas integra o código-fonte
+entregue. Compilação, testes e execução requerem apenas C/POSIX e `make`.
