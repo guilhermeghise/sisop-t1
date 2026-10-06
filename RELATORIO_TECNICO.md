@@ -4,7 +4,7 @@
 > - **Professor:** Prof. Filipo Mór
 > - **Instituição:** Pontifícia Universidade Católica do Rio Grande do Sul
 > - **Repositório:** https://github.com/guilhermeghise/sisop-t1
-> - **Data:** 05/10/2026
+> - **Data:** 06/10/2026
 > - **Commit de referência da entrega:** `2bf3cc982825d3b7cb7d43b1ccaedb4e7d763e14`
 
 ## Identificação
@@ -353,9 +353,16 @@ generalizada para matrizes pequenas ou outras máquinas. Uma evolução possíve
 
 ## 13. Vídeo de apresentação
 
-O vídeo será gravado depois da implementação. **Link, plataforma, duração e
-verificação de acesso: pendentes.** A apresentação deve durar no máximo dez
-minutos e incluir a participação dos dois integrantes. Os slides já estão em
+| Campo | Informação |
+|---|---|
+| Plataforma | YouTube |
+| Link | [Assistir à apresentação](https://youtu.be/2T4hEsPmJSQ) |
+| Duração | 09:17 — dentro do limite de dez minutos |
+| Privacidade | Não listado |
+| Senha | Não se aplica |
+| Última verificação | 06/10/2026 — página do vídeo aberta e duração conferida no player |
+
+Os slides utilizados na apresentação estão em
 [`slides/apresentacao.pdf`](slides/apresentacao.pdf).
 
 ## 14. Contribuições e domínio
@@ -402,7 +409,7 @@ entregue.
 - [x] `README.md`, `Makefile` e slides PDF.
 - [x] Repositório público no GitHub (consulta à API em 05/10/2026).
 - [x] Concluir a revisão individual descrita na seção 14.
-- [x] Gravar, publicar e testar o vídeo de até dez minutos.
+- [x] Vídeo publicado no YouTube, não listado, com duração de 9min17s e link registrado.
 - [x] Registrar o hash do commit avaliado neste relatório.
 
 ## Apêndice A — Comandos para reproduzir
