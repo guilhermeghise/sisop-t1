@@ -1,5 +1,6 @@
 #include "matriz.h"
 
+#include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,8 +10,13 @@ static int ler_dimensao(FILE *arquivo, size_t *dimensao)
 {
     char texto[64], *fim;
     unsigned long valor;
+    int separador;
 
     if (fscanf(arquivo, "%63s", texto) != 1 || texto[0] == '-')
+        return -1;
+    /* O limite de leitura nao pode dividir um numero entre duas dimensoes. */
+    separador = fgetc(arquivo);
+    if (separador != EOF && !isspace((unsigned char)separador))
         return -1;
     errno = 0;
     valor = strtoul(texto, &fim, 10);

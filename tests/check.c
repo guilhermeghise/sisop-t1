@@ -140,7 +140,11 @@ int main(void)
         {"tests/adicionais/desempenho.txt", 176011}
     };
     static const char *invalidos[] = {
-        "0 3\n", "2 2\n1 0\n", "1 1\n2\n", "1 1\n1\n0\n"
+        "0 3\n", "2 2\n1 0\n", "1 1\n2\n", "1 1\n1\n0\n",
+        "0000000000000000000000000000000"
+        "0000000000000000000000000000000" "11\n1\n",
+        "1 " "0000000000000000000000000000000"
+        "0000000000000000000000000000000" "11\n"
     };
     unsigned char matriz[12][12];
     char temporario[] = "/tmp/sisop-t1-check-XXXXXX";
@@ -185,6 +189,17 @@ int main(void)
                     (unsigned long)i + 1);
             ok = 0;
         }
+    }
+    /* Um numero de 63 caracteres completo continua sendo uma dimensao valida. */
+    if (ok && (gravar_texto(temporario,
+            "0000000000000000000000000000000"
+            "0000000000000000000000000000000" "1 1\n1\n") != 0 ||
+            conferir(temporario, 1) != 0))
+        ok = 0;
+    if (ok && (system("./bin/paralelo tests/obrigatorios/exemplo1.txt ' -1' >/dev/null 2>&1") == 0 ||
+               system("./bin/paralelo tests/obrigatorios/exemplo1.txt '\t-2' >/dev/null 2>&1") == 0)) {
+        fprintf(stderr, "Quantidade negativa de trabalhadores aceita\n");
+        ok = 0;
     }
     if (unlink(temporario) != 0) {
         perror("unlink");

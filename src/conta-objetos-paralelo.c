@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 static void *executar_regiao(void *argumento)
@@ -61,7 +62,7 @@ int main(int argc, char **argv)
     }
     errno = 0;
     solicitado = strtoul(argv[2], &fim_numero, 10);
-    if (argv[2][0] == '-' || fim_numero == argv[2] || *fim_numero != '\0' ||
+    if (strchr(argv[2], '-') != NULL || fim_numero == argv[2] || *fim_numero != '\0' ||
         errno == ERANGE || solicitado == 0 || (size_t)solicitado != solicitado) {
         fprintf(stderr, "Quantidade de trabalhadores invalida\n");
         return EXIT_FAILURE;
