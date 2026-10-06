@@ -357,7 +357,7 @@ generalizada para matrizes pequenas ou outras máquinas. Uma evolução possíve
 |---|---|
 | Plataforma | YouTube |
 | Link | [Assistir à apresentação](https://youtu.be/2T4hEsPmJSQ) |
-| Duração | 09:17 — dentro do limite de dez minutos |
+| Duração | 09:17 |
 | Privacidade | Não listado |
 | Senha | Não se aplica |
 | Última verificação | 06/10/2026 — página do vídeo aberta e duração conferida no player |
