@@ -5,7 +5,7 @@
 > - **Instituição:** Pontifícia Universidade Católica do Rio Grande do Sul
 > - **Repositório:** https://github.com/guilhermeghise/sisop-t1
 > - **Data:** 06/10/2026
-> - **Commit de referência da entrega:** `b92b58663a1f1f33301d521b392e766d85f86cf8`
+> - **Commit de referência da entrega:** `101320f821a00558e31e9048e771860e7931c123`
 
 ## Identificação
 
