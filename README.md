@@ -69,7 +69,7 @@ limitações da comparação.
 
 - [Relatório técnico](RELATORIO_TECNICO.md)
 - [Slides da apresentação](slides/apresentacao.pdf)
-- [Vídeo da apresentação no YouTube](https://youtu.be/2T4hEsPmJSQ) — não listado, duração de 9min17s.
+- [Vídeo da apresentação no YouTube](https://youtu.be/2T4hEsPmJSQ)
 
 As cinco matrizes obrigatórias foram transcritas do enunciado do Prof. Filipo
 Mór. Os resultados foram conferidos com os testes e as medições versionadas.
