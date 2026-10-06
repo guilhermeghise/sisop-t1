@@ -16,6 +16,7 @@ static void *executar_regiao(void *argumento)
 
 static size_t raiz(size_t *pais, size_t indice)
 {
+    /* Encurta o caminho ate a raiz para acelerar as proximas consultas. */
     while (pais[indice] != indice) {
         pais[indice] = pais[pais[indice]];
         indice = pais[indice];
@@ -28,6 +29,7 @@ static int unir(size_t *pais, size_t a, size_t b)
     size_t raiz_a, raiz_b;
     raiz_a = raiz(pais, a);
     raiz_b = raiz(pais, b);
+    /* So uma uniao nova reduz a contagem; contatos repetidos nao descontam. */
     if (raiz_a == raiz_b)
         return 0;
     pais[raiz_a] = raiz_b;
@@ -92,6 +94,7 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
+    /* As primeiras faixas recebem uma linha extra quando a divisao tem sobra. */
     base = matriz.linhas / trabalhadores;
     sobra = matriz.linhas % trabalhadores;
     iniciados = 0;
@@ -102,6 +105,7 @@ int main(int argc, char **argv)
         regioes[i].fim = regioes[i].inicio + base + (i < sobra ? 1 : 0);
         regioes[i].rotulos = rotulos;
         regioes[i].pais = pais;
+        /* Cada thread escreve apenas em sua faixa; a matriz e somente leitura. */
         retorno = pthread_create(&threads[i], NULL, executar_regiao, &regioes[i]);
         if (retorno != 0) {
             fprintf(stderr, "pthread_create falhou: %d\n", retorno);
@@ -110,6 +114,7 @@ int main(int argc, char **argv)
         }
         ++iniciados;
     }
+    /* Aguarda todas as escritas, inclusive se a criacao falhou parcialmente. */
     for (i = 0; i < iniciados; ++i) {
         retorno = pthread_join(threads[i], NULL);
         if (retorno != 0) {
@@ -129,6 +134,7 @@ int main(int argc, char **argv)
     for (i = 0; i < trabalhadores; ++i)
         componentes += regioes[i].componentes;
 
+    /* Apos os joins, une fronteiras em serie: acima e as duas diagonais. */
     for (i = 1; i < trabalhadores; ++i) {
         linha = regioes[i].inicio;
         for (coluna = 0; coluna < matriz.colunas; ++coluna) {

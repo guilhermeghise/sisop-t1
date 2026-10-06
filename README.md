@@ -76,3 +76,11 @@ Mór. Os resultados foram conferidos com os testes e as medições versionadas.
 Python 3, ReportLab e Poppler foram usados na preparação dos dados e figuras
 já versionados; nenhum script dessas ferramentas integra o código-fonte
 entregue. Compilação, testes e execução requerem apenas C/POSIX e `make`.
+
+[Codex](https://openai.com/codex/), [ChatGPT](https://chatgpt.com/) e
+[Claude](https://claude.ai/) foram utilizados como ferramentas de apoio ao
+desenvolvimento e à documentação. Suas sugestões são submetidas à revisão
+do grupo, que permanece responsável pelas decisões de implementação,
+pela validação dos resultados e pelo domínio do código. A correção foi
+verificada com as matrizes obrigatórias, casos adicionais e uma referência
+independente; os resultados de desempenho têm medições brutas versionadas.

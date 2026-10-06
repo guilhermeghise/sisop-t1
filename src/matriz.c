@@ -36,6 +36,7 @@ int ler_matriz(const char *caminho, Matriz *matriz)
         perror(caminho);
         return -1;
     }
+    /* Confere o produto antes de calcular o tamanho da alocacao. */
     if (ler_dimensao(arquivo, &linhas) != 0 ||
         ler_dimensao(arquivo, &colunas) != 0 ||
         linhas > ((size_t)-1) / colunas) {
@@ -98,6 +99,7 @@ int rotular_regiao(Regiao *regiao)
     capacidade = (regiao->fim - regiao->inicio) * matriz->colunas;
     if (capacidade == 0 || capacidade > ((size_t)-1) / sizeof(size_t))
         return -1;
+    /* A fila no heap evita recursao e comporta todas as celulas da faixa. */
     fila = (size_t *)malloc(capacidade * sizeof(size_t));
     if (fila == NULL)
         return -1;
@@ -107,6 +109,7 @@ int rotular_regiao(Regiao *regiao)
             indice = linha * matriz->colunas + coluna;
             if (matriz->celulas[indice] == 0 || regiao->rotulos[indice] != 0)
                 continue;
+            /* Indice global + 1 distingue faixas e reserva zero para nao visitado. */
             rotulo = indice + 1;
             regiao->rotulos[indice] = rotulo;
             if (regiao->pais != NULL)
@@ -119,6 +122,7 @@ int rotular_regiao(Regiao *regiao)
                 atual = fila[cabeca++];
                 atual_linha = atual / matriz->colunas;
                 atual_coluna = atual % matriz->colunas;
+                /* O flood fill nao atravessa a faixa atribuida a esta thread. */
                 lin_min = atual_linha > regiao->inicio ? atual_linha - 1 : atual_linha;
                 lin_max = atual_linha + 1 < regiao->fim ? atual_linha + 1 : atual_linha;
                 col_min = atual_coluna > 0 ? atual_coluna - 1 : atual_coluna;

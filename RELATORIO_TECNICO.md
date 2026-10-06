@@ -201,6 +201,25 @@ contagem de **6 para 5**, igual ao resultado esperado. No exemplo 5, o par
 `(3,3)` e `(4,4)` demonstra especificamente uma ligação diagonal entre
 faixas quando se usam três threads.
 
+As coordenadas abaixo usam índices a partir de zero. O representante global
+é mostrado como rótulo (índice da raiz mais um), após a consolidação do
+exemplo 3 com duas threads.
+
+| Faixa | Rótulo local | Células na fronteira entre as linhas 3 e 4 | Representante global |
+|---|---:|---|---:|
+| Linhas 0–3 | 1 | Nenhuma | 1 |
+| Linhas 0–3 | 23 | `(3,6)`, sem conexão com a faixa inferior | 23 |
+| Linhas 0–3 | 28 | `(3,3)` e `(3,4)` | 28 |
+| Linhas 4–7 | 36 | `(4,3)` e `(4,4)` | 28 |
+| Linhas 4–7 | 51 | Nenhuma | 51 |
+| Linhas 4–7 | 56 | Nenhuma | 56 |
+
+Os pares verticais `(3,3) ↔ (4,3)` e `(3,4) ↔ (4,4)`, assim como os
+diagonais `(3,3) ↔ (4,4)` e `(3,4) ↔ (4,3)`, indicam a mesma equivalência
+`28 ↔ 36`. Apenas a primeira união reduz a contagem; as demais encontram a
+mesma raiz. Assim, **6 componentes locais − 1 união nova = 5 objetos globais**,
+com representantes 1, 23, 28, 51 e 56.
+
 ## 8. Correção e testes
 
 `make check` compila o verificador [`tests/check.c`](tests/check.c), em ANSI C,
@@ -361,9 +380,16 @@ parte do código.
 | Enunciado e modelo de relatório fornecidos pelo professor | Requisitos e cinco matrizes obrigatórias; as matrizes foram verificadas visualmente no PDF |
 | Python 3, ReportLab e Poppler | Preparação dos dados, medições e gráficos já versionados; nenhum script dessas ferramentas integra o código-fonte entregue |
 | Pthreads e biblioteca C/POSIX | Concorrência, entrada, memória e relógio monotônico |
+| [Codex](https://openai.com/codex/), [ChatGPT](https://chatgpt.com/) e [Claude](https://claude.ai/) | Ferramentas de IA utilizadas como apoio ao desenvolvimento e à documentação |
 
-Não foram incorporados trechos de código externos ao material produzido neste
-repositório. A dupla deve revisar e compreender integralmente o resultado.
+Codex, ChatGPT e Claude foram utilizados como ferramentas de apoio ao longo
+do trabalho. As sugestões dessas ferramentas são submetidas à revisão do
+grupo; a responsabilidade pelas decisões de implementação, pela validação
+dos resultados e pela explicação do código permanece com os integrantes.
+A verificação registrada no repositório inclui as matrizes obrigatórias,
+casos adicionais, comparação com uma referência independente e medições
+repetidas de desempenho. Ambos devem compreender integralmente a solução
+entregue.
 
 ## 16. Checklist de entrega
 
